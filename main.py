@@ -1,21 +1,19 @@
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-import json
 
-with open('credentials.json', 'r') as f:
-    credentials = json.load(f)
-    API_TOKEN = credentials['API_TOKEN']
+import credentials
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('Hello! I am your Telegram bot.')
+    username = update.message.from_user.username
+    await update.message.reply_text(f'Hi {username}, Welcome to Chikhordam bot!')
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(update.message.text)
+    await update.message.reply_text("....................")
 
 
 def main():
-    application = Application.builder().token(API_TOKEN).build()
+    application = Application.builder().token(credentials.API_TOKEN).build()
 
     # Register command and message handlers
     application.add_handler(CommandHandler("start", start))
